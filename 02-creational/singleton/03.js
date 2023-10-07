@@ -23,3 +23,37 @@ class MyDatabase {
     return this.capitals[city];
   }
 }
+
+class SingletonRecordFinder {
+  totalPopulation(cities) {
+    return cities
+      .map((city) => new MyDatabase().getPopulation(city))
+      .reduce((x, y) => x + y);
+  }
+}
+
+class ConfigurableRecordFinder {
+  constructor(database) {
+    this.database = database;
+  }
+
+  totalPopulation(cities) {
+    return cities
+      .map((city) => this.database.getPopulation(city))
+      .reduce((x, y) => x + y);
+  }
+}
+
+class DummyDatabase {
+  constructor() {
+    this.capitals = {
+      alpha: 1,
+      beta: 2,
+      gamma: 3,
+    };
+  }
+
+  getPopulation(city) {
+    return this.capitals[city];
+  }
+}
